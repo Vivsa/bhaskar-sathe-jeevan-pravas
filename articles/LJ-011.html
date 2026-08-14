@@ -24,18 +24,18 @@
   </div>
 </header>
 
-<main class="art-page">
-  <p class="art-breadcrumb" style="--c:#1F3B6B">प्रकरण ६: चिरंतन प्रकाशवाट</p>
+<main class="art-page" style="--c:#1F3B6B">
+  <p class="art-breadcrumb">प्रकरण ६: चिरंतन प्रकाशवाट</p>
   <h1 class="art-title">आंतरराष्ट्रीय योग दिन २१ जुन २०१५</h1>
   <div class="art-badges">
-    <span class="tag">Wellness / Spiritual</span>
+    <span class="tag">#आरोग्य</span> <span class="tag">#आध्यात्मिक</span>
     <span class="dot">·</span>
     <span class="date">२१ जून २०१५</span>
     <span class="dot">·</span>
     <span class="art-id">LJ-011</span>
   </div>
 
-  <aside class="art-context" style="--c:#1F3B6B">
+  <aside class="art-context">
     <p><strong>आशय —</strong> ३३ मिनिटांच्या "कॉमन योग प्रोटोकॉल"चे टप्प्याटप्प्याने सादरीकरण, ज्याची सांगता एका औपचारिक देशभक्तीपर संकल्पाने होते.</p>
     <p><strong>कारण —</strong> योगाभ्यासाचा नियमित अंगीकार, शांत व निरोगी उत्तरायुष्याच्या वाटचालीचा भाग आहे.</p>
   </aside>
@@ -108,10 +108,10 @@
 </footer>
 
 <script>
-(function init(){
+(function initTheme(){
   var root = document.documentElement;
   var btn = document.getElementById('themeToggle');
-  if (!btn) { if (document.readyState !== 'complete') { window.addEventListener('DOMContentLoaded', init); } return; }
+  if (!btn) { if (document.readyState !== 'complete') { window.addEventListener('DOMContentLoaded', initTheme); } return; }
   function sync(){ btn.textContent = root.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; }
   sync();
   btn.addEventListener('click', function(){
@@ -119,6 +119,46 @@
     if (goingDark) { root.setAttribute('data-theme', 'dark'); } else { root.removeAttribute('data-theme'); }
     try { localStorage.setItem('lj-theme', goingDark ? 'dark' : 'light'); } catch (e) {}
     sync();
+  });
+})();
+
+(function initChapterToggles(){
+  var heads = document.querySelectorAll('.chapter-head');
+  heads.forEach(function(head){
+    function toggle(){
+      var card = head.closest('.chapter-card');
+      var expanded = card.classList.toggle('is-expanded');
+      head.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    }
+    head.addEventListener('click', toggle);
+    head.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+})();
+
+(function initTagFilter(){
+  var pills = document.querySelectorAll('.tagpill');
+  if (!pills.length) return;
+  var items = document.querySelectorAll('.toc-item');
+  var cards = document.querySelectorAll('.chapter-card');
+  function apply(tag){
+    pills.forEach(function(p){ p.classList.toggle('is-active', p.getAttribute('data-tag') === tag); });
+    items.forEach(function(li){
+      var tags = (li.getAttribute('data-tags') || '').split('|');
+      li.hidden = !!tag && tags.indexOf(tag) === -1;
+    });
+    cards.forEach(function(card){
+      var visible = card.querySelectorAll('.toc-item:not([hidden])').length > 0;
+      card.hidden = !visible;
+    });
+  }
+  pills.forEach(function(p){
+    p.addEventListener('click', function(){
+      var tag = p.getAttribute('data-tag') || '';
+      var already = p.classList.contains('is-active') && tag !== '';
+      apply(already ? '' : tag);
+    });
   });
 })();
 </script>

@@ -24,18 +24,18 @@
   </div>
 </header>
 
-<main class="art-page">
-  <p class="art-breadcrumb" style="--c:#5A3A63">प्रकरण ३: तत्त्वांचा दीपस्तंभ</p>
+<main class="art-page" style="--c:#5A3A63">
+  <p class="art-breadcrumb">प्रकरण ३: तत्त्वांचा दीपस्तंभ</p>
   <h1 class="art-title">मागे वळून पाहताना भाग - २</h1>
   <div class="art-badges">
-    <span class="tag">In-Between</span>
+    <span class="tag">#कौटुंबिक</span> <span class="tag">#चिंतन</span>
     <span class="dot">·</span>
     <span class="date">१ एप्रिल २००४</span>
     <span class="dot">·</span>
     <span class="art-id">LJ-026</span>
   </div>
 
-  <aside class="art-context" style="--c:#5A3A63">
+  <aside class="art-context">
     <p><strong>आशय —</strong> दिवंगत आईला आदरांजली वाहणारे आणि स्वतःच्या वृद्धत्वाविषयी चर्चा करणारे चिंतनशील टिपण, ज्यात कौटुंबिक अपेक्षांमधून बाहेर पडून समाजसेवेसाठी वेळ देण्याचा संकल्प आहे.</p>
     <p><strong>कारण —</strong> वैयक्तिक दुःखाचे रूपांतर आध्यात्मिक स्थैर्यात आणि समाजसेवेच्या संकल्पात कसे झाले, हे यातून दिसते — तत्त्वांवरची निष्ठा डगमगली नाही.</p>
   </aside>
@@ -101,10 +101,10 @@
 </footer>
 
 <script>
-(function init(){
+(function initTheme(){
   var root = document.documentElement;
   var btn = document.getElementById('themeToggle');
-  if (!btn) { if (document.readyState !== 'complete') { window.addEventListener('DOMContentLoaded', init); } return; }
+  if (!btn) { if (document.readyState !== 'complete') { window.addEventListener('DOMContentLoaded', initTheme); } return; }
   function sync(){ btn.textContent = root.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; }
   sync();
   btn.addEventListener('click', function(){
@@ -112,6 +112,46 @@
     if (goingDark) { root.setAttribute('data-theme', 'dark'); } else { root.removeAttribute('data-theme'); }
     try { localStorage.setItem('lj-theme', goingDark ? 'dark' : 'light'); } catch (e) {}
     sync();
+  });
+})();
+
+(function initChapterToggles(){
+  var heads = document.querySelectorAll('.chapter-head');
+  heads.forEach(function(head){
+    function toggle(){
+      var card = head.closest('.chapter-card');
+      var expanded = card.classList.toggle('is-expanded');
+      head.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    }
+    head.addEventListener('click', toggle);
+    head.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+})();
+
+(function initTagFilter(){
+  var pills = document.querySelectorAll('.tagpill');
+  if (!pills.length) return;
+  var items = document.querySelectorAll('.toc-item');
+  var cards = document.querySelectorAll('.chapter-card');
+  function apply(tag){
+    pills.forEach(function(p){ p.classList.toggle('is-active', p.getAttribute('data-tag') === tag); });
+    items.forEach(function(li){
+      var tags = (li.getAttribute('data-tags') || '').split('|');
+      li.hidden = !!tag && tags.indexOf(tag) === -1;
+    });
+    cards.forEach(function(card){
+      var visible = card.querySelectorAll('.toc-item:not([hidden])').length > 0;
+      card.hidden = !visible;
+    });
+  }
+  pills.forEach(function(p){
+    p.addEventListener('click', function(){
+      var tag = p.getAttribute('data-tag') || '';
+      var already = p.classList.contains('is-active') && tag !== '';
+      apply(already ? '' : tag);
+    });
   });
 })();
 </script>

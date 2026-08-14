@@ -24,18 +24,18 @@
   </div>
 </header>
 
-<main class="art-page">
-  <p class="art-breadcrumb" style="--c:#8A5A0A">शाश्वत तत्त्वज्ञानाचा संग्रह</p>
+<main class="art-page" style="--c:#8A5A0A">
+  <p class="art-breadcrumb">शाश्वत तत्त्वज्ञानाचा संग्रह</p>
   <h1 class="art-title">AIM OF LIFE - जीवन ध्येय</h1>
   <div class="art-badges">
-    <span class="tag">Spiritual Essay</span>
+    <span class="tag">#आध्यात्मिक</span>
     <span class="dot">·</span>
     <span class="date">३ ऑक्टोबर २०२१</span>
     <span class="dot">·</span>
     <span class="art-id">AT-024</span>
   </div>
 
-  <aside class="art-context" style="--c:#8A5A0A">
+  <aside class="art-context">
     <p><strong>आशय —</strong> सामाजिक परिघाबाहेरील लोकांना मदत करण्याच्या इंग्रजी अवतरणाने सुरुवात होऊन, कौटुंबिक कर्तव्याकडून संन्यासाकडे जाण्याचे मराठीतील विवेचन यात आहे.</p>
     <p><strong>कारण —</strong> वैयक्तिक दैनंदिनी नोंदींशिवाय सामान्य आध्यात्मिक प्रगतीचा मार्ग रेखाटणारा लेख असल्याने येथे ठेवला आहे.</p>
   </aside>
@@ -65,10 +65,10 @@
 </footer>
 
 <script>
-(function init(){
+(function initTheme(){
   var root = document.documentElement;
   var btn = document.getElementById('themeToggle');
-  if (!btn) { if (document.readyState !== 'complete') { window.addEventListener('DOMContentLoaded', init); } return; }
+  if (!btn) { if (document.readyState !== 'complete') { window.addEventListener('DOMContentLoaded', initTheme); } return; }
   function sync(){ btn.textContent = root.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; }
   sync();
   btn.addEventListener('click', function(){
@@ -76,6 +76,46 @@
     if (goingDark) { root.setAttribute('data-theme', 'dark'); } else { root.removeAttribute('data-theme'); }
     try { localStorage.setItem('lj-theme', goingDark ? 'dark' : 'light'); } catch (e) {}
     sync();
+  });
+})();
+
+(function initChapterToggles(){
+  var heads = document.querySelectorAll('.chapter-head');
+  heads.forEach(function(head){
+    function toggle(){
+      var card = head.closest('.chapter-card');
+      var expanded = card.classList.toggle('is-expanded');
+      head.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    }
+    head.addEventListener('click', toggle);
+    head.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+})();
+
+(function initTagFilter(){
+  var pills = document.querySelectorAll('.tagpill');
+  if (!pills.length) return;
+  var items = document.querySelectorAll('.toc-item');
+  var cards = document.querySelectorAll('.chapter-card');
+  function apply(tag){
+    pills.forEach(function(p){ p.classList.toggle('is-active', p.getAttribute('data-tag') === tag); });
+    items.forEach(function(li){
+      var tags = (li.getAttribute('data-tags') || '').split('|');
+      li.hidden = !!tag && tags.indexOf(tag) === -1;
+    });
+    cards.forEach(function(card){
+      var visible = card.querySelectorAll('.toc-item:not([hidden])').length > 0;
+      card.hidden = !visible;
+    });
+  }
+  pills.forEach(function(p){
+    p.addEventListener('click', function(){
+      var tag = p.getAttribute('data-tag') || '';
+      var already = p.classList.contains('is-active') && tag !== '';
+      apply(already ? '' : tag);
+    });
   });
 })();
 </script>

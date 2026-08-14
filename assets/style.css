@@ -25,7 +25,7 @@
    reference resolves against the element that declares it, so declaring
    it once at :root would permanently resolve against :root's (unset) --c
    instead of each chapter's own color. */
-.qn-link, .chapter-card, .art-topbar, .art-breadcrumb, .art-context {
+.qn-link, .chapter-card, .art-topbar, .art-page {
   --c-text: var(--c);
 }
 
@@ -52,8 +52,7 @@
 :root[data-theme="dark"] .qn-link,
 :root[data-theme="dark"] .chapter-card,
 :root[data-theme="dark"] .art-topbar,
-:root[data-theme="dark"] .art-breadcrumb,
-:root[data-theme="dark"] .art-context {
+:root[data-theme="dark"] .art-page {
   --c-text: color-mix(in srgb, var(--c) 55%, white 45%);
 }
 
@@ -297,7 +296,28 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
   scroll-margin-top: 4.5rem;
 }
 
-.chapter-head { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 0.9rem; }
+.chapter-head {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 0.9rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+.chapter-head:focus-visible { outline: 2px solid var(--rust); outline-offset: 3px; }
+.chapter-chevron {
+  flex: none;
+  align-self: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  transition: transform 0.18s ease;
+}
+.chapter-card.is-expanded .chapter-chevron { transform: rotate(180deg); }
+.chapter-card:not(.is-expanded) .chapter-desc,
+.chapter-card:not(.is-expanded) .toc-meta,
+.chapter-card:not(.is-expanded) .toc-aashay {
+  display: none;
+}
 .chapter-num {
   flex: none;
   width: 2.6rem;
@@ -311,6 +331,7 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
   color: var(--on-accent);
   background: var(--c);
 }
+.chapter-titles { flex: 1; min-width: 0; }
 .chapter-title { font-size: 1.45rem; color: var(--ink); }
 .chapter-sub { margin: 0.25rem 0 0; color: var(--c-text); font-size: 0.98rem; }
 .chapter-desc { color: var(--muted); font-size: 0.98rem; margin: 0.6rem 0 1.3rem; }
@@ -332,17 +353,42 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
 .tag {
   display: inline-block;
   font-family: 'EB Garamond', serif;
-  font-style: italic;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--c-text);
+  background: color-mix(in srgb, var(--c-text) 12%, transparent);
+  border-radius: 999px;
+  padding: 0.08rem 0.6rem;
+  margin: 0 0.25rem 0.25rem 0;
 }
 .tag-version {
-  font-style: normal;
   border: 1px solid var(--c-text);
-  border-radius: 999px;
-  padding: 0.05rem 0.55rem;
-  margin-left: 0.4rem;
+  background: transparent;
+  margin-left: 0.2rem;
 }
+
+/* ---------- tag cloud ---------- */
+
+.tagcloud-hint { color: var(--muted); font-size: 0.96rem; margin: 0 0 1.2rem; }
+.tagcloud-cloud { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; padding-bottom: 2rem; }
+
+.tagpill {
+  font-family: 'Noto Serif Devanagari', serif;
+  background: var(--surf);
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem;
+  cursor: pointer;
+  line-height: 1.3;
+}
+.tagpill:hover { border-color: var(--rust); }
+.tagpill.is-active { background: var(--rust); color: var(--surf); border-color: var(--rust); }
+.tagpill-count { font-size: 0.78em; opacity: 0.75; }
+.tagpill-all { font-family: 'EB Garamond', serif; font-style: italic; }
+.tagpill-1 { font-size: 0.85rem; }
+.tagpill-2 { font-size: 0.95rem; }
+.tagpill-3 { font-size: 1.1rem; }
+.tagpill-4 { font-size: 1.3rem; font-weight: 600; }
 
 /* ---------- footer ---------- */
 
