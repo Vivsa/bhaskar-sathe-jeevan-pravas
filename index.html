@@ -11,6 +11,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23F4EFE4' stroke='%23A6491E' stroke-width='6'/%3E%3Ctext x='50' y='68' font-size='54' text-anchor='middle' fill='%23A6491E'%3E%E0%A5%90%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/style.css">
 
+<script>try{if(localStorage.getItem('lj-theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}</script>
 </head>
 <body class="home">
 
@@ -62,7 +63,10 @@
 
 <nav class="quicknav">
   <span class="qn-title">लोह आणि अध्यात्माची यशोगाथा</span>
-  <div class="qn-links"><a href="#ch1" class="qn-link" style="--c:#6B4A2E">१</a><a href="#ch2" class="qn-link" style="--c:#1F5C6B">२</a><a href="#ch3" class="qn-link" style="--c:#5A3A63">३</a><a href="#ch4" class="qn-link" style="--c:#1F6B3A">४</a><a href="#ch5" class="qn-link" style="--c:#8A2E2E">५</a><a href="#ch6" class="qn-link" style="--c:#1F3B6B">६</a><a href="#appendix" class="qn-link" style="--c:#8A5A0A">परिशिष्ट</a></div>
+  <div class="qn-right">
+    <div class="qn-links"><a href="#ch1" class="qn-link" style="--c:#6B4A2E">१</a><a href="#ch2" class="qn-link" style="--c:#1F5C6B">२</a><a href="#ch3" class="qn-link" style="--c:#5A3A63">३</a><a href="#ch4" class="qn-link" style="--c:#1F6B3A">४</a><a href="#ch5" class="qn-link" style="--c:#8A2E2E">५</a><a href="#ch6" class="qn-link" style="--c:#1F3B6B">६</a><a href="#appendix" class="qn-link" style="--c:#8A5A0A">परिशिष्ट</a></div>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="रंगमोड बदला (dark / light)">🌙</button>
+  </div>
 </nav>
 
 <main>
@@ -567,5 +571,20 @@
   <p class="footer-note">ही डिजिटल आवृत्ती कौटुंबिक व वैयक्तिक वाचनासाठी तयार करण्यात आली आहे.</p>
 </footer>
 
+<script>
+(function(){
+  var root = document.documentElement;
+  var btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  function sync(){ btn.textContent = root.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; }
+  sync();
+  btn.addEventListener('click', function(){
+    var goingDark = root.getAttribute('data-theme') !== 'dark';
+    if (goingDark) { root.setAttribute('data-theme', 'dark'); } else { root.removeAttribute('data-theme'); }
+    try { localStorage.setItem('lj-theme', goingDark ? 'dark' : 'light'); } catch (e) {}
+    sync();
+  });
+})();
+</script>
 </body>
 </html>

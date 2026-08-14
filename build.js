@@ -291,12 +291,32 @@ function shell({ title, bodyClass, chapterColor, content }) {
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23F4EFE4' stroke='%23A6491E' stroke-width='6'/%3E%3Ctext x='50' y='68' font-size='54' text-anchor='middle' fill='%23A6491E'%3E%E0%A5%90%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="${bodyClass === 'article-page' ? '../assets/style.css' : 'assets/style.css'}">
 ${chapterColor ? `<style>:root{--chapter-accent:${chapterColor};}</style>` : ''}
+<script>try{if(localStorage.getItem('lj-theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}</script>
 </head>
 <body class="${bodyClass}">
 ${content}
+<script>
+(function(){
+  var root = document.documentElement;
+  var btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  function sync(){ btn.textContent = root.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; }
+  sync();
+  btn.addEventListener('click', function(){
+    var goingDark = root.getAttribute('data-theme') !== 'dark';
+    if (goingDark) { root.setAttribute('data-theme', 'dark'); } else { root.removeAttribute('data-theme'); }
+    try { localStorage.setItem('lj-theme', goingDark ? 'dark' : 'light'); } catch (e) {}
+    sync();
+  });
+})();
+</script>
 </body>
 </html>
 `;
+}
+
+function themeToggleButton() {
+  return `<button class="theme-toggle" id="themeToggle" type="button" aria-label="रंगमोड बदला (dark / light)">🌙</button>`;
 }
 
 function emblemSvg() {
@@ -383,7 +403,10 @@ function buildIndex() {
 
 <nav class="quicknav">
   <span class="qn-title">${esc(BOOK.titleMr)}</span>
-  <div class="qn-links">${chapterNavLinks()}</div>
+  <div class="qn-right">
+    <div class="qn-links">${chapterNavLinks()}</div>
+    ${themeToggleButton()}
+  </div>
 </nav>
 
 <main>
@@ -446,7 +469,10 @@ function buildArticlePage(entry, idx) {
 <header class="art-topbar" style="--c:${chapter.color}">
   <a class="art-back" href="../index.html#toc">← अनुक्रमणिका</a>
   <span class="art-topbar-title">${esc(BOOK.titleMr)}</span>
-  <a class="art-chapter-badge" href="../index.html#${chapter.key}">${esc(numBadge)} · ${esc(chapter.titleMr)}</a>
+  <div class="art-topbar-right">
+    <a class="art-chapter-badge" href="../index.html#${chapter.key}">${esc(numBadge)} · ${esc(chapter.titleMr)}</a>
+    ${themeToggleButton()}
+  </div>
 </header>
 
 <main class="art-page">

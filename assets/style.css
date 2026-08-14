@@ -1,5 +1,5 @@
 /* लोह आणि अध्यात्माची यशोगाथा — डिजिटल आवृत्ती
-   Author: श्री. भास्कर साठे  */
+   Author: श्री. भास्कर लक्ष्मण साठे  */
 
 :root {
   --bg: #F4EFE4;
@@ -13,16 +13,33 @@
   --rust: #A6491E;
   --steel: #35485A;
   --gold: #B8862E;
+  --on-accent: #FFFDF8;
+  --c-text: var(--c);
   --shadow: 0 1px 2px rgba(40, 25, 10, 0.06), 0 8px 24px rgba(40, 25, 10, 0.08);
   --chapter-accent: var(--rust);
   --maxw: 46rem;
+  color-scheme: light;
 }
 
-/* Always light: this site is read mainly by one older reader, and a
-   dark variant made accent-on-accent elements (e.g. chapter badges)
-   lose contrast on devices set to system dark mode. */
-:root, :root[data-theme="dark"] {
-  color-scheme: light;
+/* Dark mode is opt-in only (button + localStorage), never automatic —
+   an earlier system-preference-driven dark mode caused accent-on-accent
+   elements like chapter badges to lose contrast for our main reader. */
+:root[data-theme="dark"] {
+  --bg: #1B1712;
+  --surf: #241E17;
+  --surf-2: #2A231B;
+  --ink: #F1E8D9;
+  --muted: #C9BBA3;
+  --muted-2: #A5977E;
+  --rule: rgba(220, 190, 140, 0.18);
+  --rule-strong: rgba(220, 190, 140, 0.32);
+  --rust: #E08A52;
+  --steel: #8FA6BA;
+  --gold: #E0B65E;
+  --on-accent: #FFFDF8;
+  --c-text: color-mix(in srgb, var(--c) 55%, white 45%);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 28px rgba(0, 0, 0, 0.4);
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -177,11 +194,32 @@ a { color: inherit; text-decoration: none; }
   height: 2rem;
   border-radius: 50%;
   font-size: 0.85rem;
-  color: var(--c);
-  border: 1.3px solid var(--c);
+  color: var(--c-text);
+  border: 1.3px solid var(--c-text);
   opacity: 0.75;
 }
-.qn-link:hover { opacity: 1; background: color-mix(in srgb, var(--c) 12%, transparent); }
+.qn-link:hover { opacity: 1; background: color-mix(in srgb, var(--c-text) 12%, transparent); }
+
+.qn-right, .art-topbar-right { display: flex; align-items: center; gap: 0.6rem; }
+
+.theme-toggle {
+  flex: none;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  border: 1.3px solid var(--rule-strong);
+  background: var(--surf);
+  color: var(--ink);
+  font-size: 1.05rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+.theme-toggle:hover { border-color: var(--rust); }
+.theme-toggle:focus-visible { outline: 2px solid var(--rust); outline-offset: 2px; }
 
 /* ---------- shared sections ---------- */
 
@@ -236,7 +274,7 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
 .chapter-card {
   background: var(--surf);
   border: 1px solid var(--rule);
-  border-left: 5px solid var(--c);
+  border-left: 5px solid var(--c-text);
   border-radius: 0.9rem;
   padding: 1.8rem 1.8rem 1.4rem;
   margin-bottom: 1.6rem;
@@ -255,11 +293,11 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
   justify-content: center;
   font-family: 'Tiro Devanagari Marathi', serif;
   font-size: 1.1rem;
-  color: var(--surf);
+  color: var(--on-accent);
   background: var(--c);
 }
 .chapter-title { font-size: 1.45rem; color: var(--ink); }
-.chapter-sub { margin: 0.25rem 0 0; color: var(--c); font-size: 0.98rem; }
+.chapter-sub { margin: 0.25rem 0 0; color: var(--c-text); font-size: 0.98rem; }
 .chapter-years { color: var(--muted); }
 .chapter-title-en {
   font-family: 'EB Garamond', serif;
@@ -279,7 +317,7 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
   color: var(--ink);
   border-bottom: 1px solid transparent;
 }
-.toc-link:hover { color: var(--c); border-bottom-color: var(--c); }
+.toc-link:hover { color: var(--c-text); border-bottom-color: var(--c-text); }
 
 .toc-meta { margin: 0.3rem 0; font-size: 0.85rem; color: var(--muted); font-family: 'EB Garamond', serif; }
 .toc-aashay { margin: 0.2rem 0 0; color: var(--muted); font-size: 0.94rem; line-height: 1.65; }
@@ -289,11 +327,11 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
   font-family: 'EB Garamond', serif;
   font-style: italic;
   font-size: 0.82rem;
-  color: var(--c);
+  color: var(--c-text);
 }
 .tag-version {
   font-style: normal;
-  border: 1px solid var(--c);
+  border: 1px solid var(--c-text);
   border-radius: 999px;
   padding: 0.05rem 0.55rem;
   margin-left: 0.4rem;
@@ -329,7 +367,7 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
   font-size: 0.9rem;
 }
 .art-back { color: var(--muted); white-space: nowrap; }
-.art-back:hover { color: var(--c, var(--rust)); }
+.art-back:hover { color: var(--c-text, var(--rust)); }
 .art-topbar-title {
   font-family: 'Tiro Devanagari Marathi', serif;
   color: var(--muted);
@@ -342,13 +380,13 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
 .art-chapter-badge {
   flex: none;
   white-space: nowrap;
-  color: var(--c);
-  border: 1px solid var(--c);
+  color: var(--c-text);
+  border: 1px solid var(--c-text);
   border-radius: 999px;
   padding: 0.25rem 0.75rem;
   font-size: 0.82rem;
 }
-.art-chapter-badge:hover { background: color-mix(in srgb, var(--c) 12%, transparent); }
+.art-chapter-badge:hover { background: color-mix(in srgb, var(--c-text) 12%, transparent); }
 
 .art-page {
   max-width: var(--maxw);
@@ -359,7 +397,7 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
 .art-breadcrumb {
   font-family: 'EB Garamond', serif;
   font-style: italic;
-  color: var(--c);
+  color: var(--c-text);
   margin: 0 0 0.6rem;
   font-size: 0.98rem;
 }
@@ -383,14 +421,14 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
 
 .art-context {
   background: color-mix(in srgb, var(--c) 7%, var(--surf));
-  border-left: 3px solid var(--c);
+  border-left: 3px solid var(--c-text);
   border-radius: 0.5rem;
   padding: 1rem 1.2rem;
   margin-bottom: 1.2rem;
 }
 .art-context p { margin: 0 0 0.55rem; font-size: 0.96rem; color: var(--ink); line-height: 1.65; }
 .art-context p:last-child { margin-bottom: 0; }
-.art-context strong { color: var(--c); font-weight: 600; }
+.art-context strong { color: var(--c-text); font-weight: 600; }
 
 .version-note {
   font-family: 'EB Garamond', serif;
@@ -399,7 +437,7 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
   color: var(--muted);
   margin: 0 0 1.2rem;
 }
-.version-note a { color: var(--c); border-bottom: 1px solid currentColor; }
+.version-note a { color: var(--c-text); border-bottom: 1px solid currentColor; }
 
 .ornament {
   border: none;

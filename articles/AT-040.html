@@ -11,13 +11,17 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23F4EFE4' stroke='%23A6491E' stroke-width='6'/%3E%3Ctext x='50' y='68' font-size='54' text-anchor='middle' fill='%23A6491E'%3E%E0%A5%90%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="../assets/style.css">
 <style>:root{--chapter-accent:#5A3A63;}</style>
+<script>try{if(localStorage.getItem('lj-theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}</script>
 </head>
 <body class="article-page">
 
 <header class="art-topbar" style="--c:#5A3A63">
   <a class="art-back" href="../index.html#toc">← अनुक्रमणिका</a>
   <span class="art-topbar-title">लोह आणि अध्यात्माची यशोगाथा</span>
-  <a class="art-chapter-badge" href="../index.html#ch3">३ · वैराग्याच्या उंबरठ्यावर</a>
+  <div class="art-topbar-right">
+    <a class="art-chapter-badge" href="../index.html#ch3">३ · वैराग्याच्या उंबरठ्यावर</a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="रंगमोड बदला (dark / light)">🌙</button>
+  </div>
 </header>
 
 <main class="art-page">
@@ -67,5 +71,20 @@
   <span>© श्री. भास्कर लक्ष्मण साठे</span>
 </footer>
 
+<script>
+(function(){
+  var root = document.documentElement;
+  var btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  function sync(){ btn.textContent = root.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; }
+  sync();
+  btn.addEventListener('click', function(){
+    var goingDark = root.getAttribute('data-theme') !== 'dark';
+    if (goingDark) { root.setAttribute('data-theme', 'dark'); } else { root.removeAttribute('data-theme'); }
+    try { localStorage.setItem('lj-theme', goingDark ? 'dark' : 'light'); } catch (e) {}
+    sync();
+  });
+})();
+</script>
 </body>
 </html>
