@@ -404,8 +404,13 @@ function tocChapterCard(ch) {
   }).join('\n');
 
   const numBadge = ch.isAppendix ? 'प.' : ch.num;
+  const bannerImg = ch.image
+    ? (ch.tintedImage
+        ? `linear-gradient(color-mix(in srgb, var(--surf) 55%, transparent), color-mix(in srgb, var(--surf) 55%, transparent)), url('assets/images/${ch.image}')`
+        : `url('assets/images/${ch.image}')`)
+    : '';
   const banner = ch.image
-    ? `<div class="chapter-banner${ch.tintedImage ? ' is-tinted' : ''}" style="--banner-img:url('assets/images/${ch.image}')"></div>`
+    ? `<div class="chapter-banner" style="background-image:${bannerImg}"></div>`
     : '';
 
   return `<section id="${ch.key}" class="chapter-card" style="--c:${ch.color}">

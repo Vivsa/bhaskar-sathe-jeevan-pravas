@@ -96,9 +96,12 @@ a { color: inherit; text-decoration: none; }
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 50% -10%, rgba(166, 73, 30, 0.12), transparent 60%),
-    radial-gradient(ellipse at 50% 110%, rgba(53, 72, 90, 0.12), transparent 55%),
-    color-mix(in srgb, var(--bg) 76%, transparent);
+    radial-gradient(ellipse 65% 60% at 50% 42%, color-mix(in srgb, var(--bg) 45%, transparent), transparent 72%),
+    color-mix(in srgb, var(--bg) 30%, transparent);
+}
+
+.cover-title, .cover-subtitle, .cover-tagline, .kicker, .author-name {
+  text-shadow: 0 1px 18px var(--bg), 0 1px 3px var(--bg);
 }
 
 .cover-inner, .scroll-hint {
@@ -312,14 +315,9 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
   margin: -1.8rem -1.8rem 1.2rem;
   height: 150px;
   border-radius: 0.85rem 0.85rem 0 0;
-  background-image: var(--banner-img);
   background-size: cover;
   background-position: center;
-}
-.chapter-banner.is-tinted {
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--surf) 55%, transparent), color-mix(in srgb, var(--surf) 55%, transparent)),
-    var(--banner-img);
+  background-color: var(--rule);
 }
 
 .chapter-head {
