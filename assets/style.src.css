@@ -1,4 +1,4 @@
-/* लोह आणि अध्यात्माची यशोगाथा — डिजिटल आवृत्ती
+/* प्रकाशाचा प्रवासी - भास्कर — डिजिटल आवृत्ती
    Author: श्री. भास्कर लक्ष्मण साठे  */
 
 :root {
@@ -122,15 +122,7 @@ a { color: inherit; text-decoration: none; }
   font-size: clamp(2.2rem, 6vw, 3.6rem);
   line-height: 1.25;
   color: var(--ink);
-  margin-bottom: 0.6rem;
-}
-
-.cover-title-en {
-  font-family: 'EB Garamond', serif;
-  font-style: italic;
-  font-size: 1.15rem;
-  color: var(--rust);
-  margin: 0 0 1.6rem;
+  margin-bottom: 1.4rem;
 }
 
 .cover-tagline {
@@ -313,15 +305,7 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
 }
 .chapter-title { font-size: 1.45rem; color: var(--ink); }
 .chapter-sub { margin: 0.25rem 0 0; color: var(--c-text); font-size: 0.98rem; }
-.chapter-years { color: var(--muted); }
-.chapter-title-en {
-  font-family: 'EB Garamond', serif;
-  font-style: italic;
-  color: var(--muted);
-  font-size: 0.92rem;
-  margin: 0.2rem 0 0;
-}
-.chapter-desc { color: var(--muted); font-size: 0.98rem; margin: 0 0 1.3rem; }
+.chapter-desc { color: var(--muted); font-size: 0.98rem; margin: 0.6rem 0 1.3rem; }
 
 .toc-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
 .toc-item { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
