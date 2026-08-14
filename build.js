@@ -296,10 +296,10 @@ ${chapterColor ? `<style>:root{--chapter-accent:${chapterColor};}</style>` : ''}
 <body class="${bodyClass}">
 ${content}
 <script>
-(function(){
+(function init(){
   var root = document.documentElement;
   var btn = document.getElementById('themeToggle');
-  if (!btn) return;
+  if (!btn) { if (document.readyState !== 'complete') { window.addEventListener('DOMContentLoaded', init); } return; }
   function sync(){ btn.textContent = root.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; }
   sync();
   btn.addEventListener('click', function(){

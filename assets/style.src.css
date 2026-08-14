@@ -14,11 +14,19 @@
   --steel: #35485A;
   --gold: #B8862E;
   --on-accent: #FFFDF8;
-  --c-text: var(--c);
   --shadow: 0 1px 2px rgba(40, 25, 10, 0.06), 0 8px 24px rgba(40, 25, 10, 0.08);
   --chapter-accent: var(--rust);
   --maxw: 46rem;
   color-scheme: light;
+}
+
+/* --c-text must be (re)declared on the same elements that receive an
+   inline --c (chapter accent), not at :root — a custom property's var()
+   reference resolves against the element that declares it, so declaring
+   it once at :root would permanently resolve against :root's (unset) --c
+   instead of each chapter's own color. */
+.qn-link, .chapter-card, .art-topbar, .art-breadcrumb, .art-context {
+  --c-text: var(--c);
 }
 
 /* Dark mode is opt-in only (button + localStorage), never automatic —
@@ -37,9 +45,16 @@
   --steel: #8FA6BA;
   --gold: #E0B65E;
   --on-accent: #FFFDF8;
-  --c-text: color-mix(in srgb, var(--c) 55%, white 45%);
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 28px rgba(0, 0, 0, 0.4);
   color-scheme: dark;
+}
+
+:root[data-theme="dark"] .qn-link,
+:root[data-theme="dark"] .chapter-card,
+:root[data-theme="dark"] .art-topbar,
+:root[data-theme="dark"] .art-breadcrumb,
+:root[data-theme="dark"] .art-context {
+  --c-text: color-mix(in srgb, var(--c) 55%, white 45%);
 }
 
 * { box-sizing: border-box; }
