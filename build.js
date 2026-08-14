@@ -10,6 +10,10 @@ const ARTICLES_SRC = path.join(ROOT, 'draft', 'articles');
 const OUT_DIR = __dirname;
 const OUT_ARTICLES = path.join(OUT_DIR, 'articles');
 
+// Bumped on every build so browsers can't keep serving a stale cached
+// copy of the CSS/images after a deploy (this bit readers repeatedly).
+const BUILD_VERSION = Date.now().toString(36);
+
 const BOOK = {
   titleMr: 'मनोगताची शब्दफुले',
   subtitleMr: 'भास्कर, एक प्रकाशाचा प्रवासी',
@@ -170,7 +174,7 @@ const CHAPTERS = [
     ],
   },
   {
-    key: 'appendix', num: 'परिशिष्ट', numArabic: 7, isAppendix: true,
+    key: 'appendix', num: 'परिशिष्ट', numArabic: 7, isAppendix: true, image: 'appendix.jpg',
     titleMr: 'शाश्वत तत्त्वज्ञानाचा संग्रह',
     subtitleMr: 'आध्यात्मिक सोबती',
     desc: `या परिशिष्टात निव्वळ तात्विक निबंध, धर्मशास्त्रीय मार्गदर्शक तत्त्वे आणि सांस्कृतिक कविता एकत्रित केल्या आहेत. या मजकुरात वैयक्तिक प्रसंगांचे तपशील नाहीत, तर ते लेखकाच्या विचारसरणीला सतत माहिती देणारे सखोल बौद्धिक आणि सामाजिक-धार्मिक चौकट म्हणून काम करतात.`,
@@ -265,7 +269,8 @@ CHAPTERS.forEach((ch) => {
 
 // ---------- CSS ----------
 
-const css = fs.readFileSync(path.join(OUT_DIR, 'assets', 'style.src.css'), 'utf8');
+let css = fs.readFileSync(path.join(OUT_DIR, 'assets', 'style.src.css'), 'utf8');
+css = css.replace(/url\('images\/([^'?]+)'\)/g, `url('images/$1?v=${BUILD_VERSION}')`);
 fs.writeFileSync(path.join(OUT_DIR, 'assets', 'style.css'), css);
 
 // ---------- page shell ----------
@@ -282,7 +287,7 @@ function shell({ title, bodyClass, chapterColor, content }) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Marathi:ital@0;1&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23F4EFE4' stroke='%23A6491E' stroke-width='6'/%3E%3Ctext x='50' y='68' font-size='54' text-anchor='middle' fill='%23A6491E'%3E%E0%A5%90%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="${bodyClass === 'article-page' ? '../assets/style.css' : 'assets/style.css'}">
+<link rel="stylesheet" href="${bodyClass === 'article-page' ? '../assets/style.css' : 'assets/style.css'}?v=${BUILD_VERSION}">
 ${chapterColor ? `<style>:root{--chapter-accent:${chapterColor};}</style>` : ''}
 <script>try{if(localStorage.getItem('lj-theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}</script>
 </head>
@@ -405,7 +410,7 @@ function tocChapterCard(ch) {
 
   const numBadge = ch.isAppendix ? 'प.' : ch.num;
   const thumb = ch.image
-    ? `<img class="chapter-thumb" src="assets/images/${ch.image}" alt="" loading="lazy">`
+    ? `<img class="chapter-thumb" src="assets/images/${ch.image}?v=${BUILD_VERSION}" alt="" loading="lazy">`
     : '';
 
   return `<section id="${ch.key}" class="chapter-card" style="--c:${ch.color}">

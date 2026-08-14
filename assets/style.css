@@ -89,7 +89,7 @@ a { color: inherit; text-decoration: none; }
   text-align: center;
   padding: 3rem 1.5rem 5rem;
   position: relative;
-  background: url('images/cover.jpg') center 38% / cover no-repeat, var(--bg);
+  background: url('images/cover.jpg?v=mst5462p') center 38% / cover no-repeat, var(--bg);
 }
 .cover::before {
   content: "";
