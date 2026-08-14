@@ -26,7 +26,7 @@ const BOOK = {
 // chapters: order defines flattened reading sequence too — thematic (values), not chronological
 const CHAPTERS = [
   {
-    key: 'ch1', num: '१', numArabic: 1,
+    key: 'ch1', num: '१', numArabic: 1, image: 'ch1.jpg',
     titleMr: 'संस्कारांची पहाट',
     subtitleMr: 'बालपण आणि कुटुंबाकडून मिळालेली मूल्ये व शिकवण',
     desc: `हे प्रकरण लेखकाच्या बालपणातील आणि कुटुंबाकडून मिळालेल्या मूळ संस्कारांचा वेध घेते — कल्याणमधील शालेय दिवस, शिस्तप्रिय एनसीसी प्रशिक्षण, आणि आई-वडिलांकडून मिळालेली निःस्वार्थतेची शिकवण. हीच पहाटेची शिदोरी पुढील संपूर्ण जीवनप्रवासाला दिशा देत राहिली.`,
@@ -47,7 +47,7 @@ const CHAPTERS = [
     ],
   },
   {
-    key: 'ch2', num: '२', numArabic: 2,
+    key: 'ch2', num: '२', numArabic: 2, image: 'ch2.jpg',
     titleMr: 'परिश्रमाचे तेज',
     subtitleMr: 'नोकरी व व्यवसायातील अपार मेहनत आणि प्रामाणिकपणा',
     desc: `हे प्रकरण बीएसईएसमधील लेखकाच्या कारकिर्दीतील अथक परिश्रम, प्रामाणिकपणा आणि जबाबदारीने पेललेल्या आव्हानांचा मागोवा घेते — व्यवस्थापन प्रशिक्षणापासून ते क्षेत्रीय सुधारणांच्या विश्लेषणापर्यंत, कामावरील निष्ठा हाच या प्रकरणाचा गाभा आहे.`,
@@ -65,7 +65,7 @@ const CHAPTERS = [
     ],
   },
   {
-    key: 'ch3', num: '३', numArabic: 3,
+    key: 'ch3', num: '३', numArabic: 3, image: 'ch3.jpg',
     titleMr: 'तत्त्वांचा दीपस्तंभ',
     subtitleMr: 'जीवनातील कठीण प्रसंगातही न डगमगणारी मूल्ये',
     desc: `निवृत्ती, आईचे निधन आणि मोठे वैयक्तिक नुकसान — अशा कठीण काळातही लेखकाने जपलेली तात्त्विक स्थिरता आणि मानसिक शिस्त या प्रकरणात दिसते. राजयोगासारख्या तत्त्वज्ञानाचा आधार घेत, दुःखातही तेवत राहिलेला दीपस्तंभ म्हणजे हे प्रकरण.`,
@@ -86,7 +86,7 @@ const CHAPTERS = [
     ],
   },
   {
-    key: 'ch4', num: '४', numArabic: 4,
+    key: 'ch4', num: '४', numArabic: 4, image: 'ch4.jpg',
     titleMr: 'वात्सल्याची ऊब',
     subtitleMr: 'कुटुंब, मुले आणि नातेवाईकांप्रती असलेले प्रेम आणि जबाबदारी',
     desc: `मुलांची लग्ने, घरातील सलोखा राखण्याची धडपड आणि कामाचा व्याप सांभाळत कुटुंबाला दिलेली प्राथमिकता — या प्रकरणात लेखकाच्या वात्सल्यपूर्ण, जबाबदार कौटुंबिक भूमिकेचे दर्शन घडते.`,
@@ -107,7 +107,7 @@ const CHAPTERS = [
     ],
   },
   {
-    key: 'ch5', num: '५', numArabic: 5,
+    key: 'ch5', num: '५', numArabic: 5, image: 'ch5.jpg',
     titleMr: 'ऋणानुबंधांचा उजेड',
     subtitleMr: 'मित्रपरिवार, सहकारी आणि सामाजिक बांधिलकी',
     desc: `रक्तपेढीतील स्वयंसेवा, संघकार्य आणि सामाजिक चळवळींमधील सहभाग — निवृत्तीनंतर लेखकाने आपली ऊर्जा समाजासाठी, मित्रपरिवारासाठी आणि सहकाऱ्यांसाठी कशी वापरली, हे या प्रकरणात दिसते.`,
@@ -131,7 +131,7 @@ const CHAPTERS = [
     ],
   },
   {
-    key: 'ch6', num: '६', numArabic: 6,
+    key: 'ch6', num: '६', numArabic: 6, image: 'ch6.jpg',
     titleMr: 'चिरंतन प्रकाशवाट',
     subtitleMr: 'आरोग्यभान, ग्रंथाभ्यास आणि पुढच्या पिढीला दिलेला वारसा',
     desc: `आजारपणातून सावरताना जपलेले आरोग्यभान, योग-आयुर्वेदाचा अंगीकार, आणि उपनिषदांपासून नामस्मरणापर्यंतचा ग्रंथाभ्यास — जीवनाच्या सांजवेळी शांत समाधानाकडे नेणारी ही चिरंतन प्रकाशवाट आहे.`,
@@ -170,7 +170,7 @@ const CHAPTERS = [
     ],
   },
   {
-    key: 'appendix', num: 'परिशिष्ट', numArabic: 7, isAppendix: true,
+    key: 'appendix', num: 'परिशिष्ट', numArabic: 7, isAppendix: true, image: 'appendix.jpg', tintedImage: true,
     titleMr: 'शाश्वत तत्त्वज्ञानाचा संग्रह',
     subtitleMr: 'आध्यात्मिक सोबती',
     desc: `या परिशिष्टात निव्वळ तात्विक निबंध, धर्मशास्त्रीय मार्गदर्शक तत्त्वे आणि सांस्कृतिक कविता एकत्रित केल्या आहेत. या मजकुरात वैयक्तिक प्रसंगांचे तपशील नाहीत, तर ते लेखकाच्या विचारसरणीला सतत माहिती देणारे सखोल बौद्धिक आणि सामाजिक-धार्मिक चौकट म्हणून काम करतात.`,
@@ -404,8 +404,12 @@ function tocChapterCard(ch) {
   }).join('\n');
 
   const numBadge = ch.isAppendix ? 'प.' : ch.num;
+  const banner = ch.image
+    ? `<div class="chapter-banner${ch.tintedImage ? ' is-tinted' : ''}" style="--banner-img:url('assets/images/${ch.image}')"></div>`
+    : '';
 
   return `<section id="${ch.key}" class="chapter-card" style="--c:${ch.color}">
+    ${banner}
     <div class="chapter-head" role="button" tabindex="0" aria-expanded="false">
       <div class="chapter-num">${esc(numBadge)}</div>
       <div class="chapter-titles">
