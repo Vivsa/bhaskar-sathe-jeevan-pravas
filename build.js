@@ -1,4 +1,4 @@
-// Generator for "प्रकाशाचा प्रवासी - भास्कर" digital book site.
+// Generator for "मनोगताची शब्दफुले — भास्कर, एक प्रकाशाचा प्रवासी" digital book site.
 // Reads source articles from draft/articles/*.md and the chapter data below,
 // and writes a static site into site/ (index.html + articles/*.html + assets/style.css).
 
@@ -11,11 +11,12 @@ const OUT_DIR = __dirname;
 const OUT_ARTICLES = path.join(OUT_DIR, 'articles');
 
 const BOOK = {
-  titleMr: 'प्रकाशाचा प्रवासी - भास्कर',
+  titleMr: 'मनोगताची शब्दफुले',
+  subtitleMr: 'भास्कर, एक प्रकाशाचा प्रवासी',
   tagline: 'आयुष्यभर तेवत राहिलेल्या मूल्यांच्या प्रकाशाची आणि निरपेक्ष प्रेमाची साक्ष',
   author: 'श्री. भास्कर लक्ष्मण साठे',
   preface: [
-    `"भास्कर" म्हणजे सूर्य — आणि हे पुस्तक त्याच नावाला साजेशा एका प्रकाशवाटेची कहाणी आहे. लेखक श्री. भास्कर लक्ष्मण साठे यांनी गेल्या काही दशकांत वेळोवेळी लिहिलेल्या चाळीस लेखांतून — कधी दैनंदिनीच्या रूपात, कधी मनोगत म्हणून, तर कधी शुद्ध तात्त्विक चिंतन म्हणून — हा प्रवास साकार झाला आहे.`,
+    `"मनोगताची शब्दफुले" — या नावातूनच या पुस्तकाचे स्वरूप उलगडते. लेखक श्री. भास्कर लक्ष्मण साठे यांनी गेल्या काही दशकांत वेळोवेळी मनोगत, दैनंदिनी आणि तात्त्विक चिंतनाच्या रूपात फुलवलेले शब्द इथे एकत्र गुंफले आहेत. "भास्कर" म्हणजे सूर्य — आणि हा त्यांचाच, एका प्रकाशाच्या प्रवाशाचा प्रवास आहे.`,
     `हे सर्व लेख येथे कालानुक्रमे नव्हे, तर लेखकाच्या आयुष्याला घडवणाऱ्या सहा मूल्यांभोवती गुंफले आहेत — बालपणी मिळालेले संस्कार, कामातील परिश्रम, कठीण प्रसंगांतील तत्त्वनिष्ठा, कुटुंबावरचे वात्सल्य, समाजाशी जोडलेले ऋणानुबंध आणि अखेरीस गवसलेली चिरंतन प्रकाशवाट. जे लेख निव्वळ तात्त्विक निबंध, सर्वसाधारण आध्यात्मिक प्रबंध किंवा सामाजिक-धार्मिक काव्य स्वरूपाचे आहेत, आणि ज्यांना कोणत्याही विशिष्ट प्रसंगाचे बंधन नाही, ते एका स्वतंत्र परिशिष्टात — "शाश्वत तत्त्वज्ञानाचा संग्रह" — एकत्र केले आहेत.`,
     `ही डिजिटल आवृत्ती लेखकाच्या मूळ हस्तलिखित नोंदी, दैनंदिनी आणि मनोगते जशाच्या तशा जपत, केवळ वाचनासाठी सुयोग्य अशा रचनेत सादर करण्यात आली आहे.`,
   ],
@@ -276,7 +277,7 @@ function shell({ title, bodyClass, chapterColor, content }) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
-<meta name="description" content="${esc(BOOK.titleMr)} — ${esc(BOOK.author)}">
+<meta name="description" content="${esc(BOOK.titleMr)} · ${esc(BOOK.subtitleMr)} — ${esc(BOOK.author)}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Marathi:ital@0;1&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -379,6 +380,7 @@ function buildIndex() {
     ${emblemSvg()}
     <p class="kicker">एक आत्मकथनात्मक व आध्यात्मिक लेखसंग्रह</p>
     <h1 class="cover-title">${esc(BOOK.titleMr)}</h1>
+    <p class="cover-subtitle">${esc(BOOK.subtitleMr)}</p>
     <p class="cover-tagline">${esc(BOOK.tagline)}</p>
     <div class="cover-author">
       <span class="author-name">${esc(BOOK.author)}</span>
@@ -423,7 +425,7 @@ function buildIndex() {
   <p class="footer-note">ही डिजिटल आवृत्ती कौटुंबिक व वैयक्तिक वाचनासाठी तयार करण्यात आली आहे.</p>
 </footer>
 `;
-  const html = shell({ title: `${BOOK.titleMr} · ${BOOK.author}`, bodyClass: 'home', content });
+  const html = shell({ title: `${BOOK.titleMr} — ${BOOK.subtitleMr}`, bodyClass: 'home', content });
   fs.writeFileSync(path.join(OUT_DIR, 'index.html'), html);
 }
 
