@@ -170,7 +170,7 @@ const CHAPTERS = [
     ],
   },
   {
-    key: 'appendix', num: 'परिशिष्ट', numArabic: 7, isAppendix: true, image: 'appendix.jpg', tintedImage: true,
+    key: 'appendix', num: 'परिशिष्ट', numArabic: 7, isAppendix: true,
     titleMr: 'शाश्वत तत्त्वज्ञानाचा संग्रह',
     subtitleMr: 'आध्यात्मिक सोबती',
     desc: `या परिशिष्टात निव्वळ तात्विक निबंध, धर्मशास्त्रीय मार्गदर्शक तत्त्वे आणि सांस्कृतिक कविता एकत्रित केल्या आहेत. या मजकुरात वैयक्तिक प्रसंगांचे तपशील नाहीत, तर ते लेखकाच्या विचारसरणीला सतत माहिती देणारे सखोल बौद्धिक आणि सामाजिक-धार्मिक चौकट म्हणून काम करतात.`,
@@ -404,23 +404,18 @@ function tocChapterCard(ch) {
   }).join('\n');
 
   const numBadge = ch.isAppendix ? 'प.' : ch.num;
-  const bannerImg = ch.image
-    ? (ch.tintedImage
-        ? `linear-gradient(color-mix(in srgb, var(--surf) 55%, transparent), color-mix(in srgb, var(--surf) 55%, transparent)), url('assets/images/${ch.image}')`
-        : `url('assets/images/${ch.image}')`)
-    : '';
-  const banner = ch.image
-    ? `<div class="chapter-banner" style="background-image:${bannerImg}"></div>`
+  const thumb = ch.image
+    ? `<img class="chapter-thumb" src="assets/images/${ch.image}" alt="" loading="lazy">`
     : '';
 
   return `<section id="${ch.key}" class="chapter-card" style="--c:${ch.color}">
-    ${banner}
     <div class="chapter-head" role="button" tabindex="0" aria-expanded="false">
       <div class="chapter-num">${esc(numBadge)}</div>
       <div class="chapter-titles">
         <h3 class="chapter-title">${ch.isAppendix ? '' : `प्रकरण ${esc(ch.num)}: `}${esc(ch.titleMr)}</h3>
         <p class="chapter-sub">${esc(ch.subtitleMr)}</p>
       </div>
+      ${thumb}
       <span class="chapter-chevron" aria-hidden="true">▾</span>
     </div>
     <p class="chapter-desc">${esc(ch.desc)}</p>
